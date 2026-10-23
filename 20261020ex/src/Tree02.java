@@ -7,23 +7,32 @@ public class Tree02 {
 		Scanner input = new Scanner(System.in);
 		// 모래시계만들어보기
 		int n = input.nextInt();
-		int derection = 1;
-		while (n<=0) {
-			for (int j = 1; j <= n-i; j++) {
-				System.out.print(' ');
-			}
-			for (int j = 1; j <= 2*i-1; j++) {
-				System.out.print('*');
-			}
-			for (int j = 1; j <= n-i; j++) {
-				System.out.print(' ');
-			}
-			System.out.println();
-			n--;
+		String star = "*";
+		int direction = -1;
+		int tempN = n;
+		int minN;
+		
+		if (n % 2 ==0) {
+			minN = 2;
+		} else {
+			minN = 1;
 		}
 		
+		do  {
+			for (int i = 1; i <= (n-tempN)/2; i++) {
+				System.out.print(" ");
+			}
+			for (int i = 1; i <= tempN; i++) {
+				System.out.print(star);
+			}
+			System.out.println();
+			if (tempN == minN) {
+				direction = 1;			
+			}
+			tempN += 2*direction;			
+		} while (tempN <= n);
+		
 		input.close();
-
 	}
 
 }

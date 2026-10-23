@@ -79,17 +79,11 @@ public class MainClass {
 					System.out.println("Input member PW");
 					memberPW = scanner.next();
 					
-					String[] searchedMember = members.get(memberID);
-					System.out.println("searchedMember: " + searchedMember);
+					memberInfos = members.get(memberID);
+					System.out.println("memberInfos: " + memberInfos);
 					
-					if (searchedMember != null) {
-						if (searchedMember[1].equals(memberPW)) {
-							// ID, PW 일치 == 로그인 성공
-							System.out.println("SIGN-IN SUCCESS");
-						}else {
-							// ID, PW 불일치 == 로그인 실패
-							System.out.println("SIGN-IN FAIL");
-						}  
+					if (memberInfos != null && memberInfos[1].equals(memberPW)) {
+							System.out.println("SIGN-IN SUCCESS");						
 					} else {
 						// ID null == 로그인 실패
 						System.out.println("SIGN-IN FAIL");
@@ -131,8 +125,23 @@ public class MainClass {
 					
 				case MENU_DELETE:							// 4.DELETE
 					
+					System.out.println("Input member ID");
+					memberID = scanner.next();
+					
+					System.out.println("Input member PW");
+					memberPW = scanner.next();
+					
+					memberInfos = members.get(memberID);
+					if (memberInfos != null && memberInfos[1].equals(memberPW)) {
+							members.remove(memberID);
+							System.out.println("삭제 처리 이후: "+ members.get(memberID)); 
+					} else {
+						System.out.println("존재하지 않는 ID입니다. 다시 확인하세요.");
+					}										
 					break;
+					
 				case MENU_END:
+					
 					System.out.println("Good Bye");
 					systemFlag = false;
 					break;
