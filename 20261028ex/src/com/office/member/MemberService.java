@@ -37,7 +37,7 @@ public class MemberService {
 		while (inputPw) {
 			System.out.println("Input new member PW");
 			memberPw = scanner.next();
-			if (memberPw.length() > 13 || memberPw.length() < 7 ) {
+			if (memberPw.length() > 12 || memberPw.length() < 8 ) {
 				System.out.println("비밀번호는 8~12자리로 입력해야합니다.");
 			} else {
 				inputPw = false;
@@ -54,9 +54,9 @@ public class MemberService {
 		Member member = new Member(memberId, memberPw, memberMail, memberPhone);
 		// MemberDB db = new MemberDB();
 		
-		db.memberDB.put(memberPhone, member);
+		db.memberDB.put(memberId, member);
 		
-		db.memberDB.get(memberId).pringInfo();
+		db.memberDB.get(memberId).printInfo();
 		
 		/*
 		 *  과제4: id 중복 체크 기능 추가o
@@ -110,22 +110,29 @@ public class MemberService {
 		System.out.println("Input member PW");
 		String memberPw = scanner.next();
 		
-		System.out.println("Input member MAIL");
-		String memberMail = scanner.next();
-		
-		System.out.println("Input member PHONE");
-		String memberPhone = scanner.next();
+
 		
 		Member searchedMember = db.memberDB.get(memberId);
 		
 		if (searchedMember != null && searchedMember.memberPw.equals(memberPw)) {
+			
+			System.out.println("변경하려는 PW를 입력하세요.");
+			memberPw = scanner.next();
+			
+			System.out.println("변경하려는 MAIL를 입력하세요.");
+			String memberMail = scanner.next();
+			
+			System.out.println("변경하려는 PHONE를 입력하세요.");
+			String memberPhone = scanner.next();
+			
 			searchedMember.memberPw = memberPw;
 			searchedMember.memberMail = memberMail;
 			searchedMember.memberPhone = memberPhone;
 			System.out.println("정보 변경에 성공하셨습니다.");
+			
 			// 로깅
 			searchedMember = db.memberDB.get(memberId);
-			searchedMember.pringInfo();
+			searchedMember.printInfo();
 		} else {
 			System.out.println("정보 변경에 실패하셨습니다.");
 		}
@@ -159,9 +166,7 @@ public class MemberService {
 	    for (String key : db.memberDB.keySet()) {
 	        System.out.println(key);
 	    }
+	    
 	}
-	
-	
-	
-	
+		
 }

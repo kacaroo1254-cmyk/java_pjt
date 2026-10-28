@@ -27,7 +27,7 @@ public class Member {
 	// 메서드
 	
 	// 회원정보 출력 기능
-	public void pringInfo() {
+	public void printInfo() {
 		System.out.println("-----------------------------------------------");
 		System.out.println("Member ID: " + memberId);
 		System.out.println("Member PW: " + memberPw);
