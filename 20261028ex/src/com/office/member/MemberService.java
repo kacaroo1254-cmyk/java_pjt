@@ -17,34 +17,60 @@ public class MemberService {
 	// 회원가임
 	public void doSignUp(Scanner scanner) {
 		
-		boolean inputId = true;
+//		boolean inputId = true;
+//		
+//		String memberId = "";
+//		
+//		while (inputId) {
+//			System.out.println("Input new member ID");
+//			memberId = scanner.next();
+//			if (db.memberDB.containsKey(memberId)) {
+//				System.out.println("아이디가 중복되었습니다. 다시 입력하세요.");
+//			} else {
+//				inputId = false;
+//			}
+//		}
 		
-		String memberId = "";
+		System.out.println("Input new member ID");
+		String memberId = scanner.next();
 		
-		while (inputId) {
-			System.out.println("Input new member ID");
-			memberId = scanner.next();
-			if (db.memberDB.containsKey(memberId)) {
-				System.out.println("아이디가 중복되었습니다. 다시 입력하세요.");
+		while (true) {
+			Member member = db.memberDB.get(memberId);
+			if (member != null) {
+				System.out.println("Input new member ID");
+				memberId = scanner.next();
 			} else {
-				inputId = false;
+				break;
 			}
-		}
+		} 
 		
-		boolean inputPw = true;
-		String memberPw = "";
+//		boolean inputPw = true;
+//		String memberPw = "";
+//		
+//		while (inputPw) {
+//			System.out.println("Input new member PW");
+//			memberPw = scanner.next();
+//			if (memberPw.length() > 12 || memberPw.length() < 8 ) {
+//				System.out.println("비밀번호는 8~12자리로 입력해야합니다.");
+//			} else {
+//				inputPw = false;
+//			}	
+//		}
 		
-		while (inputPw) {
-			System.out.println("Input new member PW");
-			memberPw = scanner.next();
-			if (memberPw.length() > 12 || memberPw.length() < 8 ) {
+		System.out.println("Input new member PW");
+		String memberPw = scanner.next();
+		
+		while (true) {
+			if (memberPw.length() < 8 || memberPw.length() > 12) {
 				System.out.println("비밀번호는 8~12자리로 입력해야합니다.");
+				memberPw = scanner.next();
 			} else {
-				inputPw = false;
+				break;
 			}
-			
-			
 		}
+		
+		
+		
 		System.out.println("Input new member MAIL");
 		String memberMail = scanner.next();
 		
@@ -86,6 +112,8 @@ public class MemberService {
 			} else {
 				System.out.println("SIGN-IN FAIL!!");
 				failLogIn++;
+				System.out.printf("%d회 실패, 3회 실패시 종료됩니다.\n", failLogIn);
+				
 			}
 		}
 			
@@ -165,6 +193,9 @@ public class MemberService {
 	public void doPrintAllMembers() {
 	    for (String key : db.memberDB.keySet()) {
 	        System.out.println(key);
+	    }
+	    for (Member value : db.memberDB.values()) {
+	    	value.printInfo();
 	    }
 	    
 	}

@@ -6,6 +6,8 @@ public class MainClass {
 
 	public static void main(String[] args) {
 		
+		Config config = new Config();
+		
 		Scanner scanner = new Scanner(System.in);
 		MemberDB memberDB = new MemberDB();
 		
@@ -14,8 +16,8 @@ public class MainClass {
 		
 		MemberService memberService = new MemberService(memberDB);		
 		
-		boolean dummyFlag = true;
-		if (dummyFlag) {
+		
+		if (config.IS_DEV) {
 			MemberDummy memberDummy = new MemberDummy(memberDB);
 			memberDummy.initMemberDummyData();
 		}
@@ -26,12 +28,6 @@ public class MainClass {
 		 *  깃발새워서하기o
 		 */
 		
-		final int SIGN_UP = 1;
-		final int SIGN_IN = 2;
-		final int MODIFY = 3;
-		final int DELETE = 4;
-		final int DO_PRINT_ALL_MEMBERS = 5;
-		final int SYSTEM_OUT = 99;
 		
 		
 		while (systemFlag.systemFlag) {
@@ -40,38 +36,38 @@ public class MainClass {
 			int selectedMenu = scanner.nextInt();
 			
 			switch (selectedMenu) {
-			case SIGN_UP:
+			case Menu.SIGN_UP:
 				// memberService = new MemberService();
 				memberService.doSignUp(scanner);
 				
 				break;
 			
-			case SIGN_IN:
+			case Menu.SIGN_IN:
 				// memberService = new MemberService();
 				
 				memberService.doSignIn(scanner, systemFlag);
 				
 				break;
 			
-			case MODIFY:
+			case Menu.MODIFY:
 				
 				memberService.doModify(scanner);
 				
 				break;
 			
-			case DELETE:
+			case Menu.DELETE:
 				
 				memberService.doDelete(scanner);
 				
 				break;
 				
-			case DO_PRINT_ALL_MEMBERS:
+			case Menu.DO_PRINT_ALL_MEMBERS:
 				memberService.doPrintAllMembers();
 				
 				
 				break;
 				
-			case SYSTEM_OUT:
+			case Menu.SYSTEM_OUT:
 				systemFlag.systemFlag = false;
 				System.out.println("Goodbye");
 				break;
