@@ -4,14 +4,22 @@ import java.util.Scanner;
 
 public class MemberController implements MemberConfig {
 	
-	
-	
 	public void execute() {
 		
 		Scanner scanner = new Scanner(System.in);
 		
 		boolean systemFlag = true;
 		MemberService memberService = new MemberService();
+		
+		if (IS_DEV) {
+			new MemberDummy().signUpforDumy(memberService);
+		}
+		
+		String memId;
+		String memPw;
+		String memMail;
+		String memPhone;
+		MemberDto memberDto;
 		
 		while (systemFlag) {
 			
@@ -20,17 +28,60 @@ public class MemberController implements MemberConfig {
 			
 			switch (selectedMenuNum) {
 			case SIGN_UP:
-				memberService.signUp(scanner);
+				
+				System.out.println("Input new member ID!!");
+				memId = scanner.next();
+				
+				System.out.println("Input new member PW!!");
+				memPw = scanner.next();
+				
+				System.out.println("Input new member MAIL!!");
+				memMail = scanner.next();
+				
+				System.out.println("Input new member PHONE!!");
+				memPhone = scanner.next();
+				
+				memberDto = new MemberDto(memId, memPw, memMail, memPhone);
+				
+				memberService.signUp(memberDto);
+				
 				break;
 			case SIGN_IN:
-				memberService.signIn(scanner);
+				
+				System.out.println("Input member ID!!");
+				memId = scanner.next();
+				
+				System.out.println("Input member PW!!");
+				memPw = scanner.next();
+				
+				memberDto = new MemberDto(memId, memPw, null, null);
+				
+				memberService.signIn(memberDto);
+				
 				break;
+				
 			case MODIFY:
-				memberService.modify(scanner);
+				memberService.modify();
 				break;
+				
 			case DELETE:
-				memberService.delete(scanner);
+				
+				/*
+				 *  ID & PW 인증 후 삭제
+				 */
+				
+				System.out.println("Input member ID!!");
+				memId = scanner.next();
+				
+				System.out.println("Input member PW!!");
+				memPw = scanner.next();
+				
+				memberDto = new MemberDto(memId, memPw, null, null);
+				
+				memberService.delete(memberDto);
+				
 				break;
+				
 			case SYSTEM_OUT:
 				systemFlag = false;
 				System.out.println("Good bye~");
