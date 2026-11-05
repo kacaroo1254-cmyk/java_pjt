@@ -4,7 +4,8 @@ import java.util.Scanner;
 
 public class MemberService implements IMemberService{
 	
-	MemberDao memberDao = new MemberDao();
+	final private MemberDao memberDao = 
+			MemberContainer.getInstance().getMemberDao();
 	
 	@Override
 	public void signUp(MemberDto memberDto) {
@@ -40,8 +41,15 @@ public class MemberService implements IMemberService{
 	}
 
 	@Override
-	public void modify() {
-		// TODO Auto-generated method stub
+	public void modify(MemberDto memberDto) {
+
+		MemberDto updatedMemberDto = memberDao.updateMemberByMemId(memberDto);
+		
+		if (updatedMemberDto != null) {
+			System.out.println("Modify SUCCESS!!");
+		} else {
+			System.out.println("Modify FAIL!!");
+		}
 		
 	}
 
@@ -56,6 +64,13 @@ public class MemberService implements IMemberService{
 			System.out.println("탈퇴처리 실패했습니다.");
 		}
 		
+	}
+
+	public boolean doAuthenticationByMemIdAndMemPw(MemberDto memberDto) {
+		
+		MemberDto dto = memberDao.searchMemberByMemIdAndMemPw(memberDto);
+
+		return dto != null ? true : false;
 	}
 	
 	
