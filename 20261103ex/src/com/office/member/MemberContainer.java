@@ -3,8 +3,8 @@ package com.office.member;
 public class MemberContainer {
 	
 	private final MemberDao MEMBER_DAO = new MemberDao();
-	private final MemberController MEMBER_CONTROLLER = new MemberController();
-	private final MemberService MEMBER_SERVICE = new MemberService();
+	private final MemberService MEMBER_SERVICE = new MemberService(MEMBER_DAO);
+	private final MemberController MEMBER_CONTROLLER = new MemberController(MEMBER_SERVICE);
 	
 	private static MemberContainer memberContainer;
 	

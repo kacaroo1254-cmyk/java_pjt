@@ -4,10 +4,13 @@ import java.util.Scanner;
 
 public class MemberController implements MemberConfig {
 	
+	final private MemberService memberService;
+	
+	public MemberController(MemberService memberService) {
+		this.memberService = memberService;
+	}
+
 	public void execute() {
-		
-		final private MemberService memberService =
-				MemberContainer.getInstance().getMemberService();
 		
 		Scanner scanner = new Scanner(System.in);
 		
