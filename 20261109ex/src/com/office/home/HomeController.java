@@ -8,6 +8,10 @@ import com.office.menu.Menu;
 import com.office.session.Session;
 
 public class HomeController {
+	
+	/*
+	 * 메서드
+	 */
 
 	public void execute() {
 

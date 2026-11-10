@@ -37,8 +37,8 @@ public class Session {
 	 * Getters
 	 */
 	
-	public HashMap<String, Object> getAttributes() {
-		return attributes;
+	public Object getAttribute(String name) {
+		return attributes.get(name);
 	}
 	
 	public void setAttribute(String name, Object object) {
